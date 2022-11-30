@@ -15,7 +15,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //create a logger
-
+const logger = winston.createLogger({
+    transports: [
+      new winston.transports.Console(),
+      new winston.transports.File({ filename: 'error.log',level:'error' })
+    ]
+  });
 
 
 //routes
