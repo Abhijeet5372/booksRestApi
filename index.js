@@ -16,9 +16,17 @@ app.use(express.urlencoded({extended:true}));
 
 //create a logger
 const logger = winston.createLogger({
+    level:'info',
     transports: [
-      new winston.transports.Console(),
+      new winston.transports.Console({
+        format:winston.format.combine(
+            winston.format.colorize({all:true})
+        )
+      }),
       new winston.transports.File({ filename: 'error.log',level:'error' })
+    ],
+    exceptionHandlers: [
+        new winston.transports.File({ filename: 'exceptions.log' })
     ]
   });
 
@@ -26,16 +34,16 @@ const logger = winston.createLogger({
 //routes
 app.use('/api/books',booksRoute);
 
-
+s
 
 //connect to Mongodb Atlas
 mongoose.connect(process.env.MONGO_URL,
 {useNewUrlParser:true}).then(() => {
-    console.log("Connected to MongoDB Atlas")
+    logger.info("Connected to MongoDB Atlas");
 }).catch(error => {
-    console.log("Something wrong happened",error);
+    logger.error(error.message);
 })
 //Start Server
 app.listen(PORT,()=>{
-    console.log("Server Started at PORT ",PORT);
+    logger.info(`Server Started at PORT ${PORT}`);
 });
