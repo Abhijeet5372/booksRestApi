@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const winston = require('winston');
 const app = express();
 require('dotenv').config();
 const booksRoute = require('./routes/books');
@@ -12,6 +13,10 @@ const PORT = process.env.PORT || 3000
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+//create a logger
+
+
 
 //routes
 app.use('/api/books',booksRoute);
