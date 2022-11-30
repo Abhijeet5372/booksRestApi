@@ -34,7 +34,7 @@ const logger = winston.createLogger({
 //routes
 app.use('/api/books',booksRoute);
 
-s
+
 
 //connect to Mongodb Atlas
 mongoose.connect(process.env.MONGO_URL,
